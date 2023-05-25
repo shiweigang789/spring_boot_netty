@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.net.InetSocketAddress;
 
 @SpringBootApplication
+@ComponentScan("com.example.demo")
 public class DemoApplication implements CommandLineRunner {
 
     @Value("${netty.host}")
@@ -26,10 +28,10 @@ public class DemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        InetSocketAddress address = new InetSocketAddress(host, port);
-        ChannelFuture channelFuture = nettyServer.bing(address);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> nettyServer.destroy()));
-        channelFuture.channel().closeFuture().syncUninterruptibly();
+//        InetSocketAddress address = new InetSocketAddress(host, port);
+//        ChannelFuture channelFuture = nettyServer.bing(address);
+//        Runtime.getRuntime().addShutdownHook(new Thread(() -> nettyServer.destroy()));
+//        channelFuture.channel().closeFuture().syncUninterruptibly();
     }
 
 }

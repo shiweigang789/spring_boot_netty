@@ -1,17 +1,12 @@
-package com.example.demo.server;
+package com.example.demo.client;
 
 import com.example.demo.domain.MsgBody;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
-
-import java.nio.charset.Charset;
 
 /**
  * 虫洞栈：https://bugstack.cn
@@ -21,20 +16,14 @@ import java.nio.charset.Charset;
 public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
-    protected void initChannel(SocketChannel channel) {
+    protected void initChannel(SocketChannel channel) throws Exception {
+        //protobuf 处理
         channel.pipeline().addLast(new ProtobufVarint32FrameDecoder());
         channel.pipeline().addLast(new ProtobufDecoder(MsgBody.getDefaultInstance()));
         channel.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
         channel.pipeline().addLast(new ProtobufEncoder());
-
-        // 基于换行符号
-//        channel.pipeline().addLast(new LineBasedFrameDecoder(1024));
-//        // 解码转String，注意调整自己的编码格式GBK、UTF-8
-//        channel.pipeline().addLast(new StringDecoder(Charset.forName("GBK")));
-//        // 解码转String，注意调整自己的编码格式GBK、UTF-8
-//        channel.pipeline().addLast(new StringEncoder(Charset.forName("GBK")));
         // 在管道中添加我们自己的接收数据实现方法
-        channel.pipeline().addLast(new MyServerHandler());
+        channel.pipeline().addLast(new MyClientHandler());
     }
 
 }

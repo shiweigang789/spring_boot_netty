@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-//@RequestMapping(value = "/nettyserver", method = RequestMethod.GET)
+@RequestMapping(value = "/nettyserver", method = RequestMethod.GET)
 public class IndexController {
 
     @RequestMapping(value = "/say")
@@ -21,16 +21,16 @@ public class IndexController {
     @Resource
     private NettyServer nettyServer;
 
-    @RequestMapping(value = "/localAddress")
-    @ResponseBody
-    public String localAddress() {
-        return "nettyServer localAddress " + nettyServer.getChannel().localAddress();
-    }
-
-    @RequestMapping(value = "/isOpen")
-    @ResponseBody
-    public String isOpen() {
-        return "nettyServer isOpen " + nettyServer.getChannel().isOpen();
-    }
+//    @RequestMapping(value = "/localAddress")
+//    @ResponseBody
+//    public String localAddress() {
+//        return "nettyServer localAddress " + nettyServer.getChannel().localAddress();
+//    }
+//
+//    @RequestMapping(value = "/isOpen")
+//    @ResponseBody
+//    public String isOpen() {
+//        return "nettyServer isOpen " + nettyServer.getChannel().isOpen();
+//    }
 
 }
